@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Santander-Inspired Design System - Clean, Modern Red & White Banking Theme
+   All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core Banking Brand Colors */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 17%;
+
+    /* Santander Red Primary */
+    --primary: 0 65% 40%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 0 55% 50%;
+    --primary-dark: 0 70% 30%;
+
+    /* Gold Accent (secondary) */
+    --gold: 38 72% 50%;
+    --gold-light: 40 80% 60%;
+    --gold-dark: 36 65% 40%;
+
+    /* Card and Surface Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 17%;
+
+    /* Secondary Cool Grays */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 17%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
+
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 17%;
+
+    /* Trust and Security Colors */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --warning: 38 72% 50%;
+    --warning-foreground: 0 0% 17%;
+
+    /* Borders and Inputs */
+    --border: 0 0% 90%;
+    --input: 0 0% 93%;
+    --ring: 0 100% 46%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 0 90% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Roboto', 'Open Sans', system-ui, sans-serif;
+  }
+
+  button, input, select, textarea, label, .font-sans {
+    font-family: 'Inter', 'Roboto', 'Open Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Roboto', 'Open Sans', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* Banking Gradients */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+  }
+
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)));
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
+  }
+
+  /* Public website content background */
+  .bg-public-page {
+    background: linear-gradient(180deg, hsl(210 40% 97%) 0%, hsl(214 50% 95%) 30%, hsl(210 35% 97%) 60%, hsl(214 45% 96%) 100%);
+  }
+
+  /* Banking Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  .hover-lift {
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.15);
+  }
+
+  .hover-gold {
+    transition: all 0.3s ease;
+  }
+
+  .hover-gold:hover {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--gold-light)));
+    color: hsl(var(--primary));
+    transform: translateY(-1px);
+  }
+
+  /* Professional Banking Shadows */
+  .shadow-banking {
+    box-shadow: 0 4px 20px -4px hsl(var(--primary) / 0.1);
+  }
+
+  .shadow-gold {
+    box-shadow: 0 4px 20px -4px hsl(var(--gold) / 0.2);
+  }
+}
+
+/* Blue Banking Theme Override for Auth & Dashboard pages */
+.theme-blue-banking {
+  --primary: 220 60% 30%;
+  --primary-light: 220 55% 42%;
+  --primary-dark: 220 65% 22%;
+  --ring: 220 60% 30%;
+  --gold: 42 87% 55%;
+  --gold-light: 44 90% 65%;
+  --gold-dark: 40 80% 45%;
+  --destructive: 0 70% 50%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

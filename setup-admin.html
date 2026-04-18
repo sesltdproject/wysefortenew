@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Admin - Wyseforte Bank</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #4F46E5;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    button:hover {
+      background: #4338CA;
+    }
+    button:disabled {
+      background: #9CA3AF;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    .success {
+      background: #D1FAE5;
+      border: 1px solid #10B981;
+      color: #065F46;
+    }
+    .error {
+      background: #FEE2E2;
+      border: 1px solid #EF4444;
+      color: #991B1B;
+    }
+    .info {
+      background: #DBEAFE;
+      border: 1px solid #3B82F6;
+      color: #1E40AF;
+      margin-bottom: 20px;
+    }
+    .loading {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid white;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-right: 8px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔐 Setup Initial Admin User</h1>
+    
+    <div class="info">
+      <strong>Admin Credentials:</strong><br>
+      Email: admin@wyseforte.co.uk<br>
+      Password: 2P@4zQ9977x
+    </div>
+
+    <button id="setupBtn" onclick="setupAdmin()">
+      Create Admin User
+    </button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://ilesrkfkfxoqpkolaipx.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlsZXNya2ZrZnhvcXBrb2xhaXB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTU2MDUsImV4cCI6MjA4NTczMTYwNX0.hQ6cpCxw5dglojqSBz_-6a39T52uhyEvD4VGsO9oKzc';
+
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    async function setupAdmin() {
+      const btn = document.getElementById('setupBtn');
+      const resultDiv = document.getElementById('result');
+      
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading"></span>Setting up...';
+      resultDiv.innerHTML = '';
+
+      try {
+        console.log('Calling setup-admin function...');
+        
+        const { data, error } = await supabase.functions.invoke('setup-admin', {
+          body: {}
+        });
+
+        if (error) {
+          throw error;
+        }
+
+        console.log('Response:', data);
+
+        resultDiv.className = 'result success';
+        resultDiv.innerHTML = `✅ SUCCESS!\n\n${JSON.stringify(data, null, 2)}\n\nYou can now log in at /admin-auth with:\nEmail: admin@wyseforte.co.uk\nPassword: 2P@4zQ9977x`;
+        
+        btn.innerHTML = '✓ Admin Created';
+      } catch (error) {
+        console.error('Error:', error);
+        resultDiv.className = 'result error';
+        resultDiv.innerHTML = `❌ ERROR\n\n${error.message}\n\nDetails:\n${JSON.stringify(error, null, 2)}`;
+        
+        btn.disabled = false;
+        btn.innerHTML = 'Retry Setup';
+      }
+    }
+  </script>
+</body>
+</html>
